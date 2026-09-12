@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions & Questions
+    url: https://github.com/Rayos-Org/demo-app/discussions
+    about: Ask questions, share ideas, or discuss the project here.
+  - name: 🔒 Security Vulnerability
+    url: https://github.com/Rayos-Org/demo-app/security/advisories/new
+    about: Please report security vulnerabilities privately here.

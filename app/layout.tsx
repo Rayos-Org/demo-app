@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   title: "Demo App — Testnet Checkout",
   description:
     "A gasless, passkey-signed checkout demo built on Stellar with @rayos/wallet-sdk.",
+  icons: {
+    icon: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({

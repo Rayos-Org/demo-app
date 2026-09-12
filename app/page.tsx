@@ -75,7 +75,7 @@ export default function LandingPage() {
           />
         </div>
 
-        <div className="relative max-w-6xl mx-auto px-6 py-24 text-center">
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 py-16 sm:py-24 text-center">
           <motion.div
             custom={0}
             variants={fadeUp}
@@ -143,8 +143,8 @@ export default function LandingPage() {
       </section>
 
       {/* How it works */}
-      <section className="border-t border-white/8 py-24 bg-[#0d0d0d]">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="border-t border-white/8 py-16 sm:py-24 bg-[#0d0d0d]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -183,8 +183,8 @@ export default function LandingPage() {
       </section>
 
       {/* Features */}
-      <section className="py-24">
-        <div className="max-w-6xl mx-auto px-6">
+      <section className="py-16 sm:py-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -222,8 +222,8 @@ export default function LandingPage() {
       </section>
 
       {/* CTA */}
-      <section className="border-t border-white/8 py-24 bg-[#0d0d0d]">
-        <div className="max-w-6xl mx-auto px-6 text-center">
+      <section className="border-t border-white/8 py-16 sm:py-24 bg-[#0d0d0d]">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 text-center">
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}
             whileInView={{ opacity: 1, scale: 1 }}

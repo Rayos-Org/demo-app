@@ -1,3 +1,10 @@
+<h1 align="center">🛒 Rayos Demo App</h1>
+
+<p align="center">
+  <strong>A gasless, passkey-signed checkout experience built on Stellar Soroban Testnet.</strong><br/>
+  Pay for anything in one biometric tap — no seed phrases, no browser extensions, no gas fees.
+</p>
+
 <p align="center">
   <img src="https://img.shields.io/badge/Stellar-Testnet-blue?style=for-the-badge&logo=stellar&logoColor=white" alt="Stellar Testnet"/>
   <img src="https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=nextdotjs&logoColor=white" alt="Next.js 16"/>
@@ -7,15 +14,6 @@
   <img src="https://img.shields.io/badge/Playwright-E2E-2EAD33?style=for-the-badge&logo=playwright&logoColor=white" alt="Playwright"/>
   <img src="https://img.shields.io/github/actions/workflow/status/Rayos-Org/demo-app/ci.yml?branch=main&style=for-the-badge&label=CI" alt="CI Status"/>
   <img src="https://img.shields.io/badge/License-MIT-green?style=for-the-badge" alt="MIT License"/>
-</p>
-
-<h1 align="center">
-  🛒 Rayos Demo App
-</h1>
-
-<p align="center">
-  <strong>A gasless, passkey-signed checkout experience built on Stellar Soroban Testnet.</strong><br/>
-  Pay for anything in one biometric tap — no seed phrases, no browser extensions, no gas fees.
 </p>
 
 <p align="center">
@@ -126,22 +124,17 @@ demo-app/
 
 ```mermaid
 flowchart TD
-    A([User visits /]) --> B[Landing Page]
-    B --> C[Click 'Try the Demo']
-    C --> D[/shop — Browse Catalog]
-    D --> E[Click 'Buy Now' on a product]
-    E --> F[/checkout/itemId]
-    F --> G{Click 'Pay with Passkey'}
-    G --> H[🔐 Device Biometric Prompt\nFace ID / Fingerprint / Security Key]
+    A([User visits site]) --> B[Landing Page]
+    B --> C[Click Try the Demo]
+    C --> D[Shop - Browse Catalog]
+    D --> E[Click Buy Now on a product]
+    E --> F[Checkout Page]
+    F --> G{Click Pay with Passkey}
+    G --> H[Device Biometric Prompt]
     H --> I[wallet-sdk signs XDR locally]
     I --> J[relay-backend submits to Stellar]
-    J --> K[/receipt/txHash]
-    K --> L[🎉 Payment Confirmed\nView on Stellar Expert ↗]
-
-    style H fill:#1e3a5f,color:#93c5fd,stroke:#3b82f6
-    style I fill:#1e3a5f,color:#93c5fd,stroke:#3b82f6
-    style J fill:#1e3a5f,color:#93c5fd,stroke:#3b82f6
-    style L fill:#14532d,color:#86efac,stroke:#22c55e
+    J --> K[Receipt Page]
+    K --> L[Payment Confirmed - View on Stellar Expert]
 ```
 
 ---
@@ -150,40 +143,35 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    subgraph Browser["🖥 Browser (demo-app)"]
+    subgraph Browser["Browser - demo-app"]
         UI[Next.js UI]
-        SDK["@rayos/wallet-sdk"]
+        SDK[wallet-sdk]
         WA[WebAuthn API]
         UI --> SDK
         SDK --> WA
     end
 
-    subgraph Relay["☁️ relay-backend"]
+    subgraph Relay["relay-backend"]
         XDR[XDR Generator]
         Sponsor[Fee Sponsorship]
         XDR --> Sponsor
     end
 
-    subgraph Stellar["🌐 Stellar Testnet"]
+    subgraph Stellar["Stellar Testnet"]
         RPC[Soroban RPC]
         Chain[Blockchain]
         RPC --> Chain
     end
 
-    subgraph Explorer["🔍 Stellar Expert"]
+    subgraph Explorer["Stellar Expert"]
         TX[Transaction View]
     end
 
-    UI -->|"fetch /checkout/xdr"| XDR
-    SDK -->|"submit signed XDR"| Relay
-    Sponsor -->|"submit to network"| RPC
-    Chain -->|"tx hash"| UI
-    UI -->|"link"| TX
-
-    style Browser fill:#0f172a,color:#e2e8f0,stroke:#334155
-    style Relay fill:#0f172a,color:#e2e8f0,stroke:#334155
-    style Stellar fill:#0f172a,color:#e2e8f0,stroke:#334155
-    style Explorer fill:#0f172a,color:#e2e8f0,stroke:#334155
+    UI -->|fetch /checkout/xdr| XDR
+    SDK -->|submit signed XDR| Relay
+    Sponsor -->|submit to network| RPC
+    Chain -->|tx hash| UI
+    UI -->|explorer link| TX
 ```
 
 ---
@@ -288,13 +276,15 @@ NEXT_PUBLIC_RELAY_URL="https://relay.testnet.rayos.org"
 
 ## Deployment
 
-This app is Vercel-ready out of the box. To deploy:
+This app is Vercel-ready out of the box. The live demo is deployed at:
+
+**[https://rayos-demo-app.vercel.app/](https://rayos-demo-app.vercel.app/)**
+
+To deploy your own instance:
 
 1. Import the repository at [vercel.com/new](https://vercel.com/new).
 2. Set the environment variables from `.env.example` in the Vercel dashboard.
 3. Deploy — Vercel auto-detects Next.js with zero configuration.
-
-The live demo URL will be updated here once deployed.
 
 > For a pinned, stable demo URL separate from `main`, create a separate Vercel project pointing to a specific release tag.
 
@@ -329,5 +319,5 @@ This project is licensed under the **MIT License**. See the [LICENSE](LICENSE) f
 <p align="center">
   Built with ❤️ by the <a href="https://github.com/Rayos-Org">Rayos team</a> on <a href="https://stellar.org">Stellar</a>.
   <br/>
-  <sub>Powered by <a href="https://www.npmjs.com/package/@rayos/wallet-sdk">@rayos/wallet-sdk</a> · Settled on <a href="https://stellar.expert/explorer/testnet">Stellar Testnet</a></sub>
+  <sub>Powered by <a href="https://www.npmjs.com/package/@rayos/wallet-sdk">@rayos/wallet-sdk</a> · Settled on <a href="https://stellar.expert/explorer/testnet">Stellar Testnet</a> · Live at <a href="https://rayos-demo-app.vercel.app/">rayos-demo-app.vercel.app</a></sub>
 </p>

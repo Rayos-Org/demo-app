@@ -12,47 +12,55 @@ export default async function CheckoutPage({ params }: PageProps) {
   const { itemId } = await params;
   const product = getProduct(itemId);
 
-  if (!product) {
-    notFound();
-  }
+  if (!product) notFound();
 
   return (
-    <div className="max-w-3xl mx-auto py-8">
-      <div className="mb-8">
-        <Link href="/shop" className="text-blue-600 hover:underline text-sm flex items-center gap-1">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>
-          Back to Shop
-        </Link>
-      </div>
+    <div className="max-w-5xl mx-auto px-6 py-12">
+      {/* Back */}
+      <Link
+        href="/shop"
+        className="inline-flex items-center gap-2 text-gray-400 hover:text-white transition-colors text-sm mb-10"
+      >
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2"><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/></svg>
+        Back to shop
+      </Link>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-        {/* Product Details Column */}
+        {/* Left: product */}
         <div>
-          <div className="bg-gray-100 rounded-xl overflow-hidden mb-6 h-64 relative">
-            <Image 
-              src={product.image} 
+          <div className="relative h-72 w-full rounded-2xl overflow-hidden bg-[#1a1a1a] mb-6">
+            <Image
+              src={product.image}
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
-              className="object-cover w-full h-full"
+              className="object-cover"
+              priority
             />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
           </div>
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">{product.name}</h1>
-          <p className="text-gray-600">{product.description}</p>
+          <h1 className="text-2xl font-bold text-white mb-2">{product.name}</h1>
+          <p className="text-gray-400 leading-relaxed mb-6">{product.description}</p>
+
+          {/* Trust signals */}
+          <div className="space-y-2">
+            {[
+              "Settled on Stellar Testnet Soroban",
+              "Gasless — relay pays XLM fees",
+              "Non-custodial — keys never leave device",
+              "On-chain proof on receipt",
+            ].map((t) => (
+              <div key={t} className="flex items-center gap-2.5 text-sm text-gray-500">
+                <svg className="shrink-0 text-green-500" width="15" height="15" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="m4.5 12.75 6 6 9-13.5"/></svg>
+                {t}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Checkout Flow Column */}
+        {/* Right: checkout */}
         <div>
           <CheckoutFlow product={product} />
-          
-          <div className="mt-8 text-sm text-gray-500 bg-blue-50 p-4 rounded-lg border border-blue-100">
-            <p className="font-semibold text-blue-900 mb-1">How this works</p>
-            <ul className="list-disc pl-4 space-y-1 text-blue-800">
-              <li>Clicking &quot;Pay with Passkey&quot; invokes your device&apos;s biometric sensor.</li>
-              <li>A transaction is signed locally—no private keys are transmitted.</li>
-              <li>The SDK submits the signed XDR to the network relay.</li>
-            </ul>
-          </div>
         </div>
       </div>
     </div>

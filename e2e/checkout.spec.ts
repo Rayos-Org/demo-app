@@ -1,28 +1,33 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from "@playwright/test";
 
-test('completes full checkout flow', async ({ page }) => {
-  // Go to the shop page
-  await page.goto('/shop');
+test("completes full checkout flow", async ({ page }) => {
+  // 1. Go to the shop
+  await page.goto("/shop");
 
-  // Verify the banner is present
-  await expect(page.locator('text=TESTNET DEMO')).toBeVisible();
+  // 2. Testnet banner must always be visible
+  await expect(page.locator("text=TESTNET DEMO")).toBeVisible();
 
-  // Click on the first product's Buy Now button
-  await page.click('text=Buy Now >> nth=0');
+  // 3. Click first Buy Now button
+  const buyButton = page.getByRole("link", { name: /buy now/i }).first();
+  await expect(buyButton).toBeVisible();
+  await buyButton.click();
 
-  // We should be redirected to the checkout page
+  // 4. Should land on checkout page
   await expect(page).toHaveURL(/\/checkout\/prod_\d/);
+  await expect(page.getByText("Order Summary")).toBeVisible();
 
-  // Click "Pay with Passkey"
-  await page.click('button:has-text("Pay with Passkey")');
+  // 5. Click Pay with Passkey
+  await page.getByRole("button", { name: /pay with passkey/i }).click();
 
-  // For the demo mock flow, wait for redirection to receipt
-  await expect(page).toHaveURL(/\/receipt\/.*/, { timeout: 10000 });
+  // 6. Wait for receipt — mock fallback redirects after 1s
+  await expect(page).toHaveURL(/\/receipt\/.*/, { timeout: 15000 });
 
-  // Check the receipt page text
-  await expect(page.locator('text=Payment Successful')).toBeVisible();
-  await expect(page.locator('text=Transaction Hash')).toBeVisible();
+  // 7. Receipt page content
+  await expect(page.getByText("Payment Confirmed")).toBeVisible();
+  await expect(page.getByText("Transaction Hash")).toBeVisible();
 
-  // Verify the Stellar Expert link exists
-  await expect(page.locator('a[href*="stellar.expert"]')).toBeVisible();
+  // 8. On-chain proof link must exist (the specific tx link in the receipt card)
+  await expect(
+    page.getByRole("link", { name: /view on stellar expert testnet/i })
+  ).toBeVisible();
 });

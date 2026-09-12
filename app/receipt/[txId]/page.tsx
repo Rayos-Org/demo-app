@@ -6,9 +6,9 @@ interface PageProps {
 
 export default async function ReceiptPage({ params }: PageProps) {
   const { txId } = await params;
-  
+
   return (
-    <div className="py-12 flex items-center justify-center">
+    <div className="max-w-5xl mx-auto px-6 py-16 flex items-center justify-center min-h-[60vh]">
       <ReceiptView txHash={txId} />
     </div>
   );

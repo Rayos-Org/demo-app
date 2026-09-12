@@ -1,38 +1,60 @@
+"use client";
+
 import Link from "next/link";
-import { Product } from "@/data/mock-catalog";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { Product } from "@/data/mock-catalog";
+import { Badge } from "@/components/ui/badge";
 
 interface ProductCardProps {
   product: Product;
+  index: number;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, index }: ProductCardProps) {
   return (
-    <div className="group flex flex-col bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-all duration-200 hover:-translate-y-1">
-      <div className="relative h-48 w-full bg-gray-100 overflow-hidden">
-        {/* We use standard img here for demo simplicity with external URLs, 
-            but for a real app, Next.js Image with configured domains is better. */}
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: index * 0.08, duration: 0.4, ease: "easeOut" }}
+      className="group flex flex-col bg-[#111] hover:bg-[#161616] border border-white/8 hover:border-white/15 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-black/50 hover:-translate-y-1"
+    >
+      {/* Image */}
+      <div className="relative h-52 w-full overflow-hidden bg-[#1a1a1a]">
         <Image
           src={product.image}
           alt={product.name}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-300"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover transition-transform duration-500 group-hover:scale-105"
         />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+        <div className="absolute top-3 right-3">
+          <Badge variant="secondary" className="text-xs backdrop-blur-sm bg-black/50 border-white/10 text-gray-300">
+            USDC
+          </Badge>
+        </div>
       </div>
-      <div className="p-5 flex flex-col flex-grow">
-        <h3 className="font-semibold text-lg text-gray-900 mb-1">{product.name}</h3>
-        <p className="text-gray-500 text-sm mb-4 flex-grow">{product.description}</p>
+
+      {/* Content */}
+      <div className="flex flex-col flex-1 p-5">
+        <h3 className="font-semibold text-white text-base mb-1 leading-snug">{product.name}</h3>
+        <p className="text-gray-500 text-sm mb-5 flex-1 leading-relaxed">{product.description}</p>
+
         <div className="flex items-center justify-between mt-auto">
-          <span className="font-bold text-lg">${product.priceUSD.toFixed(2)}</span>
+          <div>
+            <span className="text-2xl font-bold text-white">${product.priceUSD.toFixed(2)}</span>
+            <span className="text-xs text-gray-500 ml-1">USDC</span>
+          </div>
           <Link
             href={`/checkout/${product.id}`}
-            className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors focus:ring-2 focus:ring-blue-500 focus:ring-offset-1 outline-none"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/40"
           >
             Buy Now
+            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>
           </Link>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }

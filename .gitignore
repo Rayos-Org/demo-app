@@ -41,3 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 demo-app-ARCHITECTURE.md
+
+playwright-report/
+test-results/

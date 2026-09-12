@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import Image from "next/image";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,11 +36,8 @@ export default function RootLayout({
         {/* Navbar */}
         <header className="border-b border-white/8 bg-[#0a0a0a]/80 backdrop-blur-md sticky top-[33px] z-40">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 font-bold text-lg text-white hover:opacity-80 transition-opacity">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="12" cy="12" r="10" stroke="#3b82f6" strokeWidth="1.5"/>
-                <path d="M8 12h8M12 8l4 4-4 4" stroke="#3b82f6" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-              </svg>
+            <Link href="/" className="flex items-center gap-3 font-bold text-lg text-white hover:opacity-80 transition-opacity">
+              <Image src="/logo.png" alt="Rayos Logo" width={28} height={28} className="object-contain rounded-full" />
               <span>Rayos</span>
               <span className="text-xs text-gray-500 font-normal border border-white/10 rounded px-1.5 py-0.5 ml-1 hidden sm:inline-block">demo</span>
             </Link>

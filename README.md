@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="public/logo.png" alt="Rayos Logo" width="150" />
+</p>
+
 <h1 align="center">🛒 Rayos Demo App</h1>
 
 <p align="center">
@@ -22,6 +26,8 @@
   <a href="docs/ARCHITECTURE.md">📐 Architecture</a>
   &nbsp;·&nbsp;
   <a href="docs/SETUP.md">🛠 Setup Guide</a>
+  &nbsp;·&nbsp;
+  <a href="docs/TESTING.md">🧪 Testing Guide</a>
   &nbsp;·&nbsp;
   <a href="docs/CONTRIBUTING.md">🤝 Contributing</a>
   &nbsp;·&nbsp;
@@ -304,6 +310,7 @@ Contributions are welcome and appreciated! Please read the guidelines before get
 | Document | Purpose |
 |---|---|
 | [docs/SETUP.md](docs/SETUP.md) | Local development setup |
+| [docs/TESTING.md](docs/TESTING.md) | Manual user flows, E2E test guide, pre-demo checklist |
 | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) | System design, repo wiring, data flow |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | How to contribute effectively |
 | [.env.example](.env.example) | Required environment variables |

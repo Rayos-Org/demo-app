@@ -42,13 +42,13 @@ export function ProductCard({ product, index }: ProductCardProps) {
         <p className="text-gray-500 text-sm mb-5 flex-1 leading-relaxed">{product.description}</p>
 
         <div className="flex items-center justify-between mt-auto">
-          <div>
+          <div className="min-w-0 pr-2 truncate">
             <span className="text-2xl font-bold text-white">${product.priceUSD.toFixed(2)}</span>
-            <span className="text-xs text-gray-500 ml-1">USDC</span>
+            <span className="text-xs text-gray-500 ml-1 hidden sm:inline-block">USDC</span>
           </div>
           <Link
             href={`/checkout/${product.id}`}
-            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/40"
+            className="inline-flex items-center gap-2 bg-blue-600 hover:bg-blue-500 text-white text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 hover:shadow-lg hover:shadow-blue-900/40 whitespace-nowrap shrink-0"
           >
             Buy Now
             <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2.5"><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/></svg>

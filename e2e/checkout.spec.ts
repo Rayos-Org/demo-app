@@ -1,6 +1,17 @@
 import { test, expect } from "@playwright/test";
 
 test("completes full checkout flow", async ({ page }) => {
+  // Mock WebAuthn to immediately reject, preventing hangs in CI environments without virtual authenticators
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, 'credentials', {
+      value: {
+        get: () => Promise.reject(new Error("WebAuthn not supported in E2E")),
+        create: () => Promise.reject(new Error("WebAuthn not supported in E2E"))
+      },
+      configurable: true
+    });
+  });
+
   // 1. Go to the shop
   await page.goto("/shop");
 

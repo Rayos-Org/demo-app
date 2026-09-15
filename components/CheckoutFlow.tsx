@@ -39,10 +39,9 @@ export function CheckoutFlow({ product }: CheckoutFlowProps) {
       }
     } catch (err: unknown) {
       console.error("Checkout error:", err);
-      // Graceful demo fallback
-      setTimeout(() => {
-        router.push(`/receipt/mock_tx_hash_${Date.now()}`);
-      }, 1000);
+      const errorMessage = err instanceof Error ? err.message : "Transaction failed. Please try again.";
+      setError(errorMessage);
+      setStep("error");
     }
   };
 
